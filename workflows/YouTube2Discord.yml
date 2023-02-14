@@ -1,0 +1,18 @@
+name: Send a telegram message when new Youtube videos update
+on:
+  youtube:
+    channel_id:
+      - UCNS7BQ7gEJxTbEDsffsGqkg
+jobs:
+  discord:
+    name: Send a message to discord
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_USERNAME: ${{ secrets.DISCORD_USERNAME }}
+          DISCORD_AVATAR: ${{ secrets.DISCORD_AVATAR }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "`POCLANOS 포크라노스 - YouTube`'\n'**${{on.youtube.outputs.title}}**'\n'${{on.youtube.outputs.link}}"
